@@ -1,15 +1,33 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="demo app for medical neural nets">
-    <meta name="author" content="Bura">
-    <title>nn.Demo</title>
+{% extends 'base.html' %}
 
-    <link href="/static_files/bootstrap_dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="text-center">    
-<h1>nn.Demo</h1>
-</body>
-</html>
+{% block main %}
+
+<section class="py-5 text-center container text-white">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="fw-light">RoboDoc</h1>
+      <p class="lead text-muted">Choose a chest xray image to be analyzed.</p>
+      <p class="lead text-muted">use images of JPG, PNG or DCM format and above 224x224px size, no photographs of CXR.</p>
+      <p class="lead text-muted">reportable pathologies: Pneumonia</p>
+      <!-- <a href="#" class="btn btn-primary my-2">Main call to action</a> -->
+      <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">
+        <form method="post" action="/result" enctype="multipart/form-data" id="form" class="">
+          <label class="custom-file-upload custom-file-label">
+            <input type="file" name="file" id="file" class="cusom-file-input" autocomplete="off" required="">
+            Upload a Chest X-Ray
+          </label>
+        </form>
+      </button>
+
+    </p>
+  </div>
+</div>
+</section>
+
+<script>
+document.getElementById("file").onchange = function() {
+    document.getElementById("form").submit();
+};
+</script>
+
+{% endblock %}

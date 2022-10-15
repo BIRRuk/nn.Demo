@@ -1,41 +1,37 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__, template_folder='templates', static_folder='static_files')
 
+def predict():
+    return {
+        'probablities': [.35, .81],
+        'dxlist': ['pneumonia', 'abnormal XR not otherwise specified'],
+        'prediction': ['abnormal XR not otherwise specified',  .81]
+    }
+#
 
 @app.route('/')
 def hello():
-    return render_template('index.html')
+    configs = {
+        'title': 'web_demo home',
+    }
+    return render_template('index.html', configs=configs)
 
-# @app.route('/home/selection/', methods=['POST', 'GET'])
-# def selection():
-#     # return request.args
+@app.route('/about/')
+def about():
+    configs = {
+        'title': 'web_demo about',
+    }
+    return render_template('about.html', configs=configs)
 
-#     picked_dates = db.load_json('db.json')
-#     alerts = []
+@app.route('/result/', methods=['POST'])
+def result():
+    configs = {
+        'title': 'web_demo result page',
+    }
+    return render_template('result.html', configs=configs)
 
-#     if len(picked_dates[request.args['dateSelection']]['picked_by']) < 30:
-#         for key, value in picked_dates.items():
-#             if request.args['user_id'] in value['picked_by']:
-#                 print('removed from', key)
-#                 print(request.args['user_id'], 'from', value['picked_by'])
-#                 value['picked_by'].remove(request.args['user_id'])
-
-#         picked_dates[request.args['dateSelection']]['picked_by'].append(request.args['user_id'].upper())
-#         picked_date = request.args['dateSelection'].upper()
-#         db.save_json(picked_dates, 'db.json')
-#     else: alerts.append('your selected date is fully booked')
-
-#     # print(request.args['dateSelection'])
-#     for key, value in picked_dates.items():
-#         value['picked_by'] = [find_name(i) for i in value['picked_by']]
-#     # print(picked_dates)
-
-#     return render_template(
-#         'home.html', 
-#         user_id=request.args['user_id'], 
-#         user_name=request.args['user_name_'], 
-#         pick_db=picked_dates, 
-#         alerts = alerts,
-#         picked_date=picked_date,
-#         user_pass=request.args['floatingPassword'])
+@app.route('/api/')
+def api():
+    prediction = predict()
+    return jsonify(prediction)
