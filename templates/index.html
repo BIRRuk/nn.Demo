@@ -1,17 +1,32 @@
 {% extends 'base.html' %}
-
 {% block main %}
+<!-- <header class="pb-3 mb-4 border-bottom"> -->
+<header class="pb-3 mb-2 border-bottom">
+  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+      <li><a href="/about" class="nav-link px-2 text-white">About</a></li>
+      <li><a href="#" class="nav-link px-2 text-primary">Learn more</a></li>
+    </ul>
+
+  </div>
+</header>
 
 <section class="py-5 text-center container text-white">
   <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto">
-      <h1 class="fw-light">RoboDoc</h1>
-      <p class="lead text-muted">Choose a chest xray image to be analyzed.</p>
-      <p class="lead text-muted">use images of JPG, PNG or DCM format and above 224x224px size, no photographs of CXR.</p>
-      <p class="lead text-muted">reportable pathologies: Pneumonia</p>
-      <!-- <a href="#" class="btn btn-primary my-2">Main call to action</a> -->
+
+      <h1 class="fw-light">{{ configs.appName }}</h1>
+      <hr />
+      <div>
+  		  <p class="lead text-muted">use images of JPG, PNG or DCM format and above 224x224px size, don't use photographs of XR.</p >
+  		  <p class="lead text-muted">reportable pathologies: Pneumonia</p>
+  		  <p class="lead text-muted">P.S. This app is primarily powered by boredom and has zero(0) diagnostic value.</p>
+      </div>
+      <hr />
+      
       <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">
-        <form method="post" action="/result" enctype="multipart/form-data" id="form" class="">
+        <form method="post" action="/result/" enctype="multipart/form-data" id="form" class="">
           <label class="custom-file-upload custom-file-label">
             <input type="file" name="file" id="file" class="cusom-file-input" autocomplete="off" required="">
             Upload a Chest X-Ray
@@ -19,15 +34,15 @@
         </form>
       </button>
 
-    </p>
+    </div>
   </div>
-</div>
 </section>
 
 <script>
-document.getElementById("file").onchange = function() {
+  document.getElementById("file").onchange = function () {
     document.getElementById("form").submit();
-};
+  };
 </script>
 
+{% include 'footer.html' %}
 {% endblock %}

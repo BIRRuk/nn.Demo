@@ -1,37 +1,44 @@
 {% extends 'base.html' %}
 
 {% block main %}
+{% include 'header.html' %}
 
-  <!-- <div class="b-example-divider"></div> -->
+<!-- <div class="b-example-divider"></div> -->
 
-  <!-- <div class="bg-dark text-secondary px-4 py-5 text-center"> -->
-  <div>
-  <!-- <div class="container col-xxl-8 px-4 py-5"> -->
-  <!-- <div class="col-xxl-8 px-4 py-5"> -->
+<div>
   <div class="col-xxl-8">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
       <!-- <div class="col-10 col-sm-8 col-lg-6"> -->
       <div class="col-sm-8 col-lg-6">
         <!-- column size 8 in small device, 6 in large -->
-        <img src="/static_files/0004cfab-14fd-4e49-80ba-63a80b6bddd6.jpg" class="d-block mx-lg-auto img-fluid" alt="Analyzed XR" width="700" height="700" loading="lazy">
+        <!-- <img src="/static_files/0004cfab-14fd-4e49-80ba-63a80b6bddd6.jpg" class="d-block mx-lg-auto img-fluid" alt="Analyzed XR" width="700" height="700" loading="lazy"> -->
+        <img src="data:image/jpg;base64,{{ configs.img_base64 }}" class="d-block mx-lg-auto img-fluid" alt="Analyzed XR"
+          width="700" height="700" loading="lazy">
       </div>
-      <div class="col-lg-6">
-        <h1 class="display-5 fw-bold lh-1 mb-3">Result:</h1>
-        <p class="lead">Pulmonary Nodule (96%)</p>
+      <div class="col-lg-6 text-white">
+        <!-- <h1 class="display-5 fw-bold lh-1 mb-3">Result:</h1> -->
+        <h1 class="fs-4">Result: {{configs.prediction['prediction'][0]}} ({{configs.prediction['prediction'][1]}}%)</h1>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <!-- <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Dx was correct</button> -->
-          <button type="button" class="btn btn-outline-secondary btn-lg px-4">Dx was correct</button>
-          <button type="button" class="btn btn-outline-secondary btn-lg px-4">Dx was incorrect</button>
+          <button type="button" class="btn btn-outline-secondary px-4">Dx was correct</button>
+          <button type="button" class="btn btn-outline-secondary px-4">Dx was incorrect</button>
         </div>
-        <p class="lead"> </p>
+        <br />
+        <!-- <hr/> -->
         <p class="lead">compleate dx (dx, probablity):</p>
-        <p class="lead">{</p>
-        <p class="lead">-   x:23,</p>
-        <p class="lead">-   x:23,</p>
-        <p class="lead">-   x:23,</p>
-        <p class="lead">}</p>
+
+        <div>
+          {%for i in configs.prediction['prediction_all']%}
+          <p class="">- {{i[0]}}, ({{i[1]}}%)</p>
+          {%endfor%}
+        </div>
+
+        <!-- <p class="lead"><a href="https://wikipedia.org" class="nav-link px-2 text-primary">Learn more</a></p> -->
+        <p class="lead"><a href="https://wikipedia.org" class="nav-link text-primary">Learn more</a></p>
+
       </div>
     </div>
   </div>
+</div>
 
+{% include 'footer.html' %}
 {% endblock %}
