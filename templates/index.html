@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block main %}
-<!-- <header class="pb-3 mb-4 border-bottom"> -->
+
 <header class="pb-3 mb-2 border-bottom">
   <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
@@ -18,13 +18,21 @@
 
       <h1 class="fw-light">{{ configs.appName }}</h1>
       <hr />
-      <div>
+      <div class="text-start">
   		  <p class="lead text-muted">use images of JPG, PNG or DCM format and above 224x224px size, don't use photographs of XR.</p >
   		  <p class="lead text-muted">reportable pathologies: Pneumonia</p>
   		  <p class="lead text-muted">P.S. This app is primarily powered by boredom and has zero(0) diagnostic value.</p>
       </div>
-      <hr />
-      
+      <!-- <hr /> -->
+      <div>
+        {%for i in get_flashed_messages()%}
+        <!-- <div class="alert alert-danger alert-dismissible fade show" role="alert"> -->
+        <!-- <div class="alert alert-warning" role="alert"> -->
+        <div class="alert alert-dark" role="alert">
+            {{ i }}
+        </div>
+        {%endfor%}
+      </div>
       <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">
         <form method="post" action="/result/" enctype="multipart/form-data" id="form" class="">
           <label class="custom-file-upload custom-file-label">
@@ -37,12 +45,6 @@
     </div>
   </div>
 </section>
-
-<script>
-  document.getElementById("file").onchange = function () {
-    document.getElementById("form").submit();
-  };
-</script>
 
 {% include 'footer.html' %}
 {% endblock %}

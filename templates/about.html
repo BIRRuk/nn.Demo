@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block main %}
+  {% include 'header.html' %}
+
+<!-- <div class="container"> -->
+  <div class="pt-4 text-white">
+  <div class="row g-5">
+    <!-- <div class="col-md-8"> -->
+    <div class="col-md-9">
+      <!-- <h3 class="pb-4 mb-4 fst-italic border-bottom">
+        From the Firehose
+      </h3> -->
+
+      <article class="blog-post">
+
+        <!-- <h2>About</h2> -->
+        <span class="fs-4">About</span>
+        <hr/>
+
+        <p>This demo web app is running a modified version of <a href="#" class="">resnet50</a> trained on the <a href="#" class="">RSNA Pneumonia Detection Challenge</a> dataset and achieves a sensetivity and specificity of __% and __% respectively for pneumonia. It can also detect other opacities and achieves a sensetivity and specificity of __% and __%</p>
+
+        <span class="fs-4">Usage and Troubleshooting</span>
+        <hr/>
+        <p>Upload good quality images of chest radiographs that contain all the whole lung field.</p>
+        <p>The images should be of greater than 224 pixels in height and width. images of lesser dimenssion return a <code>small image size</code> error</p>
+        <p>Use an aspect ratio close to a square, images that are too wide or tall return a <code>bad aspect ratio</code> error</p>
+        <p>Use images of ['png', 'jpg', 'jpeg', 'gif', 'dcm'] format, other formats return a <code>unsupported file format</code> error</p>
+
+        <span class="fs-4">Further Research</span>
+        <hr/>
+        <p>If you want to learn A.I. or M.L. take this <a href="#" class="">course</a>.</p>
+
+      </article>
+
+    </div>
+
+    <div class="col-md-3">
+      <div class="position-sticky" style="top: 2rem;">
+
+        <div class="p-4">
+          <h4 class="fst-italic">Resources</h4>
+          <ol class="list-unstyled">
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">arXiv</a></li>
+          </ol>
+          <!-- <h4 class="fst-italic">by: Dr. Biruk Negussie</h4> -->
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% include 'footer.html' %}
+{% endblock %}
