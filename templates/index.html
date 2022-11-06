@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block main %}
 
+<!-- <div class="d-flex h-100 w-100"> -->
 <header class="pb-3 mb-2 border-bottom">
   <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
@@ -12,7 +13,9 @@
   </div>
 </header>
 
-<section class="py-5 text-center container text-white">
+<section class="py-4 text-center container text-white">
+<!-- <section class="text-center container text-white d-flex" style="display: block; margin-top: auto; margin-bottom: auto;"> -->
+<!-- <section class="text-center container text-white d-flex" style="display: block; margin: auto;"> -->
   <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto">
 
@@ -20,8 +23,8 @@
       <hr />
       <div class="text-start">
   		  <p class="lead text-muted">use images of JPG, PNG or DCM format and above 224x224px size, don't use photographs of XR.</p >
-  		  <p class="lead text-muted">reportable pathologies: Pneumonia</p>
-  		  <p class="lead text-muted">P.S. This app is primarily powered by boredom and has zero(0) diagnostic value.</p>
+  		  <p class="lead text-muted">reportable pathologies: <code>Pneumonia, Other opacities (not specified).</code></p>
+  		  <p class="lead text-muted">P.S. This app is primarily powered by boredom and has zero(<code>0</code>) diagnostic value.</p>
       </div>
       <!-- <hr /> -->
       <div>
@@ -45,6 +48,6 @@
     </div>
   </div>
 </section>
-
+<!-- </div> -->
 {% include 'footer.html' %}
 {% endblock %}
