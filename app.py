@@ -1,7 +1,4 @@
 from flask import Flask, render_template, request, jsonify, flash, redirect
-from PIL import Image
-import io
-import base64
 import requests
 
 app = Flask(__name__, template_folder='templates', static_folder='static_files')
@@ -12,7 +9,20 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif', 'dcm'])
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-from predict import format_img, predict, multipart_post
+url = 'http://127.0.0.1:8081/api'
+def multipart_post(file, url=url):
+    payload = {}
+    files = [('file', ('', file, 'image'))]
+    headers = {
+      'x-api-key': 'xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxx'
+    }
+    try:
+        print(f'[ {__name__} ] uploading {files} to {url}.')
+        response = requests.request("POST", url, headers=headers, data=payload, files=files)
+    except Exception as e:
+        print('Exception during <multipart_post>:', e)
+        response = None
+    return response
 
 configs = {
     # 'appName': 'RobotCXR',
@@ -41,31 +51,27 @@ def result():
             return redirect(request.url)
 
         if file and allowed_file(file.filename):
-            multipart_post(file)
 
             if file.filename.rsplit('.', 1)[1].lower() in ['dcm', 'dicom']:
                 flash('Error: DICOM support is on the way, use other image formats for now')
                 return redirect(request.url)
 
             else:
-                img, error_msg = format_img(file)
-                if error_msg:
-                    flash(error_msg)
+                response = multipart_post(file)
+                if response is None:
+                    flash('Error: DICOM support is on the way, use other image formats for now')
                     return redirect(request.url)
-
-
-            prediction = predict(img)
-            configs['prediction'] = prediction
-
-            bytesio = io.BytesIO()
-            # img.save(bytesio, format="JPEG")
-            img.save(bytesio, format="PNG")
-            img_base64 = base64.b64encode(bytesio.getvalue()).decode('ascii')
-            configs['img_base64'] = img_base64
-
+                
+                responsej = response.json()
+                responsej['appName'] = configs['appName'] 
+                responsej['title'] = configs['title'] 
 
             print(f'[ {__file__} ]', 'Image successfully uploaded and displayed')
-            return render_template('result.html', configs=configs)
+            if responsej['exit_code'] == 0:
+                return render_template('result.html', configs=responsej)
+            else:
+                flash(responsej['error_msg'])
+                return redirect(request.url)
 
         else:
             flash(f'Error: Allowed file types are: {ALLOWED_EXTENSIONS}')
