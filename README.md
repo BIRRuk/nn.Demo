@@ -35,3 +35,6 @@ the response json format :
   "training_id": training id
 }
 ```
+
+<!-- ![demo screenshot](static_files/screenshot%20demo%200.jpg) -->
+<img src="static_files/screenshot%20demo%200.jpg" alt="demo screenshot" width="360"/>
